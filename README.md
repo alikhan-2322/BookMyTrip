@@ -1,3 +1,17 @@
+# 📖 BookMyTrip
+
+A lightweight prototype of an online travel portal—search for trips, compare prices, book & pay, and retrieve confirmations—all under clean service contracts with automatic pre- and post-condition checks.
+
+---
+
+## 🚀 Table of Contents
+
+1. [Use-Case Diagram](#1-use-case-diagram)  
+2. [User Stories](#2-user-stories)  
+3. [Domain Model](#3-domain-model)  
+4. [Sequence Diagrams](#4-sequence-diagrams)  
+5. [Service Contracts (OCL)](#5-service-contracts-ocl)  
+6. [Validation](#6-validation)  
 
 ---
 
@@ -5,10 +19,9 @@
 
 ![Use-Case Diagram](docs/images/usecase.png)
 
-Actors & UC’s:
-
-- **User**: searchTrip, comparePrices, userBooking, getConfirmations  
-- **TravelAgent**, **AffiliatePartner**, **Manager**, **SupportAgent** with their own UCs  
+**Actors & Use-Cases**  
+- **User**: `searchTrip`, `comparePrices`, `userBooking`, `getConfirmations`  
+- **TravelAgent**, **AffiliatePartner**, **Manager**, **SupportAgent** each have their own specialized UCs  
 
 ---
 
@@ -17,8 +30,7 @@ Actors & UC’s:
 ![User Stories – part 1](docs/images/UserStories1.png)  
 ![User Stories – part 2](docs/images/UserStories2.png)
 
-Examples:
-
+**Examples**  
 > **As a user**, I want to search for available trips so I can explore travel options.  
 > **As an affiliate partner**, I want to promote offers and track referrals.  
 > **As a system**, I want to integrate payment gateways, ensure uptime, and recover from failures.
@@ -29,10 +41,9 @@ Examples:
 
 ![Domain Model](docs/images/ConceptualClassDiagram.png)
 
-Key entities:
-
-- **User**, **TravelPortal**, **Trips**, **Booking**, **Payment**, **PriceCompare**, **BookingSummary**, …  
-- Associations and inheritance (e.g. TravelPortal → Payment, Booking → Trips)
+**Key Entities**  
+- **User**, **TravelPortal**, **Trips**, **Booking**, **Payment**, **PriceCompare**, **BookingSummary**, ...  
+- Rich associations & inheritance (e.g. `TravelPortal → Payment`, `Booking → Trips`)
 
 ---
 
@@ -47,8 +58,8 @@ Key entities:
 3. **User Booking**  
    ![User Booking Sequence](docs/images/seq3.png)
 
- ---
- 
+---
+
 ## 📐 5. Service Contracts (OCL)
 
 ### a) `SearchTripService::search(...)`
@@ -71,6 +82,7 @@ Contract SearchTripService::search(
   postcondition:
     result = selectedTrips
 }
+
 ``` 
 ---
 
