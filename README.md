@@ -3,7 +3,7 @@
 
 ## 🌐 1. Use-Case Diagram
 
-![Use-Case Diagram](docs/images/usecases.png)
+![Use-Case Diagram](docs/images/usecase.png)
 
 Actors & UC’s:
 
