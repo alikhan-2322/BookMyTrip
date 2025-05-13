@@ -78,14 +78,14 @@ Contract SearchTripService::search(
 ## 🛡️ 6. Validation
 
 1. **Initial State**  
-   ![Validation – initial blank](docs/images/validation1.png)  
+   ![Validation – initial blank](docs/images/Validation1.png)  
    At startup, all input fields are empty, no trips are listed, and the precondition panel shows green (`true`), since by default `destination <> "" and date <> null and travelers > 0` isn’t yet evaluated.
 
 2. **Valid Input**  
-   ![Validation – success](docs/images/validation2.png)  
+   ![Validation – success](docs/images/Validation2.png)  
    When you enter a non-empty destination, a valid date, and a positive traveler count, the search operation runs successfully: the precondition and postcondition panels stay green and the matching trips (if any) would appear in the table.
 
 3. **Invalid Input**  
-   ![Validation – failure](docs/images/validation3.png)  
+   ![Validation – failure](docs/images/Validation3.png)  
    If any input fails the precondition (e.g. empty destination), the precondition panel turns red and a warning dialog pops up (“Precondition is not satisfied”), preventing the operation from executing.
 
