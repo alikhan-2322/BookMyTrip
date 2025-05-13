@@ -14,8 +14,8 @@ Actors & UC’s:
 
 ## ✏️ 2. User Stories
 
-![User Stories – part 1](docs/images/userstories1.png)  
-![User Stories – part 2](docs/images/userstories2.png)
+![User Stories – part 1](docs/images/UserStories1.png)  
+![User Stories – part 2](docs/images/UserStories2.png)
 
 Examples:
 
@@ -27,7 +27,7 @@ Examples:
 
 ## 📊 3. Domain Model
 
-![Domain Model](docs/images/domainmodel.png)
+![Domain Model](docs/images/ConceptualClassDiagram.png)
 
 Key entities:
 
@@ -36,7 +36,20 @@ Key entities:
 
 ---
 
-## 📐 4. Service Contracts (OCL)
+## 🎞 4. Sequence Diagrams
+
+1. **Search Trip**  
+   ![Search Trip Sequence](docs/images/Seq1.png)
+
+2. **Compare Prices**  
+   ![Compare Prices Sequence](docs/images/seq2.png)
+
+3. **User Booking**  
+   ![User Booking Sequence](docs/images/seq3.png)
+
+ ---
+ 
+## 📐 5. Service Contracts (OCL)
 
 ### a) `SearchTripService::search(...)`
 
@@ -58,3 +71,21 @@ Contract SearchTripService::search(
   postcondition:
     result = selectedTrips
 }
+``` 
+---
+
+
+## 🛡️ 6. Validation
+
+1. **Initial State**  
+   ![Validation – initial blank](docs/images/validation1.png)  
+   At startup, all input fields are empty, no trips are listed, and the precondition panel shows green (`true`), since by default `destination <> "" and date <> null and travelers > 0` isn’t yet evaluated.
+
+2. **Valid Input**  
+   ![Validation – success](docs/images/validation2.png)  
+   When you enter a non-empty destination, a valid date, and a positive traveler count, the search operation runs successfully: the precondition and postcondition panels stay green and the matching trips (if any) would appear in the table.
+
+3. **Invalid Input**  
+   ![Validation – failure](docs/images/validation3.png)  
+   If any input fails the precondition (e.g. empty destination), the precondition panel turns red and a warning dialog pops up (“Precondition is not satisfied”), preventing the operation from executing.
+
