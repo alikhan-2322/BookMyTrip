@@ -6,26 +6,28 @@ A lightweight prototype of an online travel portal—search for trips, compare p
 
 ## 🚀 Table of Contents
 
-1. [Use-Case Diagram](#1-use-case-diagram)  
-2. [User Stories](#2-user-stories)  
-3. [Domain Model](#3-domain-model)  
-4. [Sequence Diagrams](#4-sequence-diagrams)  
-5. [Service Contracts (OCL)](#5-service-contracts-ocl)  
-6. [Validation](#6-validation)  
+1. [Use-Case Diagram](#use-case-diagram)  
+2. [User Stories](#user-stories)  
+3. [Domain Model](#domain-model)  
+4. [Sequence Diagrams](#sequence-diagrams)  
+5. [Service Contracts (OCL)](#service-contracts-ocl)  
+6. [Validation](#validation)  
+7. [Microservice Architecture](#microservice-architecture)  
+8. [Automated Generation of OO Detailed Design (RM2DM)](#automated-generation-of-oo-detailed-design-rm2dm)  
 
 ---
 
-## 🌐 1. Use-Case Diagram
+## 🌐 Use-Case Diagram
 
 ![Use-Case Diagram](docs/images/usecase.png)
 
 **Actors & Use-Cases**  
 - **User**: `searchTrip`, `comparePrices`, `userBooking`, `getConfirmations`  
-- **TravelAgent**, **AffiliatePartner**, **Manager**, **SupportAgent** each have their own specialized UCs  
+- **TravelAgent**, **AffiliatePartner**, **Manager**, **SupportAgent** each have their own specialized use-cases  
 
 ---
 
-## ✏️ 2. User Stories
+## ✏️ User Stories
 
 ![User Stories – part 1](docs/images/UserStories1.png)  
 ![User Stories – part 2](docs/images/UserStories2.png)
@@ -37,7 +39,7 @@ A lightweight prototype of an online travel portal—search for trips, compare p
 
 ---
 
-## 📊 3. Domain Model
+## 📊 Domain Model
 
 ![Domain Model](docs/images/ConceptualClassDiagram.png)
 
@@ -47,7 +49,7 @@ A lightweight prototype of an online travel portal—search for trips, compare p
 
 ---
 
-## 🎞 4. Sequence Diagrams
+## 🎞 Sequence Diagrams
 
 1. **Search Trip**  
    ![Search Trip Sequence](docs/images/Seq1.png)
@@ -60,9 +62,9 @@ A lightweight prototype of an online travel portal—search for trips, compare p
 
 ---
 
-## 📐 5. Service Contracts (OCL)
+## 📐 Service Contracts (OCL)
 
-### a) `SearchTripService::search(...)`
+### SearchTripService::search(...)
 
 ```ocl
 Contract SearchTripService::search(
@@ -103,14 +105,14 @@ Contract SearchTripService::search(
 
 ## 🏗️ Microservice Architecture
 
-### 1. Microservice Use-Case Layout  
+### 7.1 Microservice Use-Case Layout  
 This high-level view shows each bounded context (dashed box) and which use-cases (ovals) belong in it.
 
 ![Microservice Use-Case Diagram](docs/images/microserviceusecase.png)
 
 ---
 
-### 2. Grouped Entities per Service  
+### 7.2 Grouped Entities per Service  
 Here we’ve laid out each domain/entity class inside its proper microservice context:
 
 - **UserService**: `User`, `Trips`, `Booking`, `PriceCompare`, `Search`, `SearchResults`  
@@ -123,14 +125,14 @@ Here we’ve laid out each domain/entity class inside its proper microservice co
 
 ---
 
-### 3. Conceptual Class Diagram  
+### 7.3 Conceptual Class Diagram  
 The original conceptual/domain model that you used as the blueprint:
 
 ![Conceptual Class Diagram](docs/images/coneptualupdate.png)
 
 ---
 
-### 4. Auto-Generated Architecture (RapidMS)  
+### 7.4 Auto-Generated Architecture (RapidMS)  
 RapidMS can auto-generate this skeleton for you, tracing use-case operations into service interfaces:
 
 ![Automated Architecture Generation](docs/images/microservice%20model.png)
@@ -138,7 +140,7 @@ RapidMS can auto-generate this skeleton for you, tracing use-case operations int
 
 ---
 
-### 🔄 7.2 Automated Generation of OO Detailed Design (RM2DM)
+### 🔄 8. Automated Generation of OO Detailed Design (RM2DM)
 
 The diagram below was generated directly from our `bookmytrip.req` model using the RM2DM plugin. It illustrates:
 
