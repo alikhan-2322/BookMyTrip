@@ -101,3 +101,56 @@ Contract SearchTripService::search(
    ![Validation – failure](docs/images/Validation3.png)  
    If any input fails the precondition (e.g. empty destination), the precondition panel turns red and a warning dialog pops up (“Precondition is not satisfied”), preventing the operation from executing.
 
+## 🏗️ Microservice Architecture
+
+### 1. Microservice Use-Case Layout  
+This high-level view shows each bounded context (dashed box) and which use-cases (ovals) belong in it.
+
+![Microservice Use-Case Diagram](docs/images/microserviceusecase.png)
+
+---
+
+### 2. Grouped Entities per Service  
+Here we’ve laid out each domain/entity class inside its proper microservice context:
+
+- **UserService**: `User`, `Trips`, `Booking`, `PriceCompare`, `Search`, `SearchResults`  
+- **TravelAgentService**: `Report`, `Manager`  
+- **AffiliatePartnerService**: `CheckOutPage`, `BookingSummary`, `SearchResults`  
+- **ManagerService**: `AffiliatePartner`, `Notification`, `RevenueReports`  
+- **SupportAgentService**: `SupportAgent`, `Payment`, `TravelPortal`
+
+![Microservice Contexts](docs/images/Entities.png)
+
+---
+
+### 3. Conceptual Class Diagram  
+The original conceptual/domain model that you used as the blueprint:
+
+![Conceptual Class Diagram](docs/images/coneptualupdate.png)
+
+---
+
+### 4. Auto-Generated Architecture (RapidMS)  
+RapidMS can auto-generate this skeleton for you, tracing use-case operations into service interfaces:
+
+![Automated Architecture Generation](docs/images/microservice%20model.png)
+
+
+---
+
+### 🔄 7.2 Automated Generation of OO Detailed Design (RM2DM)
+
+The diagram below was generated directly from our `bookmytrip.req` model using the RM2DM plugin. It illustrates:
+
+- **Domain Entities** with full attribute lists and accessor/mutator operations (e.g. `User`, `Trips`, `Booking`, `Search`, `Payment`, etc.).  
+- **Service Interfaces** at the bottom – one for each use-case/service contract:
+  - `UserBookingService` (`confirmBooking(...)`, `validatePayment()`, `submitConfirmation()`)
+  - `GetConfirmationsService` (`generateBookingSummary()`, `confirmAndPay()`)
+  - `SearchTripService` (`search(destination, date, travelers): Set<Trips>`)
+  - `ComparePricesService` (`inputSelectedTrip()`, `compareThePrices()`)
+  - Plus core stubs: `BookMyTripSystem` and `ThirdPartyServices`.  
+- A central **`EntityManager`** class auto-generated to handle common CRUD and query operations across all entities.  
+- **Associations** and **multiplicities** derived from the domain model (e.g. `Booking → Trips`, `PriceCompare → Trips`, `TravelPortal → Payment`, etc.).
+
+![RM2DM Detailed Design](docs/images/RM2DM.png)
+
