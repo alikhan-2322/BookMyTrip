@@ -1,0 +1,174 @@
+MicroServiceModel BookMyTrip {
+	MicroService UserService {
+		ProvidedInterface userBooking{
+			[Operation]
+			userBooking
+		}
+		ProvidedInterface comparePrices{
+			[Operation]
+			comparePrices
+		}
+		ProvidedInterface searchTrip{
+			[Operation]
+			searchTrip
+		}
+		ProvidedInterface getConfirmations{
+			[Operation]
+			getConfirmations
+		}
+		ProvidedInterface managePayment{
+			[Operation]
+			createPayment
+			queryPayment
+			updatePayment
+			modifyPayment
+		}
+		ProvidedInterface manageSearch{
+			[Operation]
+			createSearch
+			querySearch
+			updateSearch
+			modifySearch
+		}
+		DomainModel UserService {
+			 Entity User {
+				UserID : String
+				UserPassword : String
+				UserEmail : String
+				[Refer]
+			}
+			 Entity Booking {
+				Id : Integer
+				IsConfirmed : Boolean
+				PaymentDetails : Payment
+				UserName : String
+				BookingTrip : Boolean
+				[Refer]
+				BookingtoTrips : Trips  Association
+			}
+			 Entity PriceCompare {
+				SelectedTrips : Set<Trips>
+				LowestPrice : Integer
+				[Refer]
+			}
+			 Entity Trips {
+				Id : Integer
+				Destination : String
+				TripDate : Date
+				Name : String
+				Description : String
+				Price : Integer
+				[Refer]
+			}
+			 Entity Search {
+				Destination : String
+				Datee : Date
+				Traverlers : Integer
+				[Refer]
+				SearchtoSearchResults : SearchResults  Association
+			}
+			 Entity SearchResults {
+				TripsList : String
+				ChooseTrip : Boolean
+				PriceCompare : Boolean
+				[Refer]
+			}
+			 Entity BookingSummary {
+				Trip : Trips
+				PaymentDetails : Payment
+				[Refer]
+			}
+			 Entity Payment {
+				CardNumber : String
+				ExpirationDate : Date
+				CVV : String
+				NameOnCard : String
+				BillingAmount : Integer
+				TransactionID : String
+				[Refer]
+			}
+		}
+	}
+	MicroService AfilliatePartnerService {
+		ProvidedInterface promoteOffers{
+			[Operation]
+			promoteOffers
+		}
+		DomainModel AfilliatePartnerService {
+			 Entity CheckOutPage {
+				TripInfo : String
+				TripID : Integer
+				Attribute3 : String
+				Print : Boolean
+				[Refer]
+			}
+		}
+	}
+	MicroService SupportAgentService {
+		ProvidedInterface assistUsers{
+			[Operation]
+			assistUsers
+		}
+		RequiredInterface managePayment
+		RequiredInterface manageSearch
+		DomainModel SupportAgentService {
+			 Entity TravelPortal {
+				Trips : String
+				Users : String
+				[Refer]
+			}
+			 Entity SupportAgent {
+				SupportAgentID : String
+				SupportAgentPassword : String
+				SupportAgentEmail : String
+				[Refer]
+			}
+		}
+	}
+	MicroService TravelAgentService {
+		ProvidedInterface agentBooking{
+			[Operation]
+			agentBooking
+		}
+		DomainModel TravelAgentService {
+			 Entity Report {
+				BookingList : String
+				Revenue : Integer
+				TraficSource : String
+				[Refer]
+			}
+		}
+	}
+	MicroService ManagerService {
+		ProvidedInterface monitorBookings{
+			[Operation]
+			monitorBookings
+		}
+		DomainModel ManagerService {
+			 Entity AffiliatePartner {
+				AffiliateID : String
+				AffiliatePassword : String
+				AffiliateEmail : String
+				[Refer]
+			}
+			 Entity Notification {
+				TripReference : Integer
+				Message : String
+				SendDate : Date
+				[Refer]
+			}
+			 Entity RevenueReports {
+				ReportID : String
+				ReportType : String
+				Description : String
+				[Refer]
+			}
+			 Entity Manager {
+				ManagerID : String
+				ManagerPassword : String
+				ManagerEmail : String
+				[Refer]
+			}
+		}
+	}
+}

@@ -1,0 +1,334 @@
+UseCaseModel BookMyTrip {
+
+	UC::searchTrip extend comparePrices definedBySSD(SearchTripSSD) relatedService(SearchTripService)
+	UC::comparePrices definedBySSD(ComparePricesSSD) relatedService(ComparePricesService)
+	UC::userBooking include comparePrices, getConfirmations definedBySSD(UserBookingSSD) relatedService(UserBookingService)
+	UC::getConfirmations definedBySSD(GetConfirmationsSSD) relatedService(GetConfirmationsService)
+	UC::agentBooking
+	UC::promoteOffers
+	UC::monitorBookings
+	UC::assistUsers
+
+	Actor User {
+		searchTrip
+		comparePrices
+		userBooking
+		getConfirmations
+	}
+
+	Actor TravelAgent {
+		agentBooking
+	}
+
+	Actor AfilliatePartner {
+		promoteOffers
+	}
+
+	Actor Manager {
+		monitorBookings
+	}
+
+	Actor SupportAgent {
+		assistUsers
+	}
+
+	Interaction SearchTripSSD {
+
+		[Participants: User SearchTripService]
+
+		CallMessage::SearchTripSSDCallMessage1(search SearchTripSSDCallMessage1SendingEnd -> SearchTripSSDExecution1StartEnd)
+		ReturnMessage::SearchTripSSDCallMessage1Return(SearchTripSSDExecution1FinishEnd -> SearchTripSSDCallMessage1ReturnReceivingEnd SearchTripSSDCallMessage1)
+
+		Execution::SearchTripSSDExecution1(SearchTripService SearchTripSSDExecution1StartEnd SearchTripSSDExecution1FinishEnd)
+
+		MessageEnd::SearchTripSSDCallMessage1SendingEnd(User SearchTripSSDCallMessage1)
+		ExecutionEnd::SearchTripSSDExecution1StartEnd(SearchTripService SearchTripSSDExecution1)
+		ExecutionEnd::SearchTripSSDExecution1FinishEnd(SearchTripService SearchTripSSDExecution1)
+		MessageEnd::SearchTripSSDCallMessage1ReturnReceivingEnd(User SearchTripSSDCallMessage1Return)
+
+	}
+
+	Interaction ComparePricesSSD {
+
+		[Participants: User ComparePricesService]
+
+		CallMessage::ComparePricesSSDCallMessage1(inputSelectedTrip ComparePricesSSDCallMessage1SendingEnd -> ComparePricesSSDExecution1StartEnd)
+		ReturnMessage::ComparePricesSSDCallMessage1Return(ComparePricesSSDExecution1FinishEnd -> ComparePricesSSDCallMessage1ReturnReceivingEnd ComparePricesSSDCallMessage1)
+		CallMessage::ComparePricesSSDCallMessage3(compareThePrices ComparePricesSSDCallMessage3SendingEnd -> ComparePricesSSDExecution2StartEnd)
+		ReturnMessage::ComparePricesSSDCallMessage3Return(ComparePricesSSDExecution2FinishEnd -> ComparePricesSSDCallMessage3ReturnReceivingEnd ComparePricesSSDCallMessage3)
+
+		Execution::ComparePricesSSDExecution1(ComparePricesService ComparePricesSSDExecution1StartEnd ComparePricesSSDExecution1FinishEnd)
+		Execution::ComparePricesSSDExecution2(ComparePricesService ComparePricesSSDExecution2StartEnd ComparePricesSSDExecution2FinishEnd)
+
+		MessageEnd::ComparePricesSSDCallMessage1SendingEnd(User ComparePricesSSDCallMessage1)
+		ExecutionEnd::ComparePricesSSDExecution1StartEnd(ComparePricesService ComparePricesSSDExecution1)
+		ExecutionEnd::ComparePricesSSDExecution1FinishEnd(ComparePricesService ComparePricesSSDExecution1)
+		MessageEnd::ComparePricesSSDCallMessage1ReturnReceivingEnd(User ComparePricesSSDCallMessage1Return)
+		MessageEnd::ComparePricesSSDCallMessage3SendingEnd(User ComparePricesSSDCallMessage3)
+		ExecutionEnd::ComparePricesSSDExecution2StartEnd(ComparePricesService ComparePricesSSDExecution2)
+		ExecutionEnd::ComparePricesSSDExecution2FinishEnd(ComparePricesService ComparePricesSSDExecution2)
+		MessageEnd::ComparePricesSSDCallMessage3ReturnReceivingEnd(User ComparePricesSSDCallMessage3Return)
+
+	}
+
+	Interaction UserBookingSSD {
+
+		[Participants: User UserBookingService]
+
+		CallMessage::UserBookingSSDCallMessage1(confirmBooking UserBookingSSDCallMessage1SendingEnd -> UserBookingSSDExecution1StartEnd)
+		ReturnMessage::UserBookingSSDCallMessage1Return(UserBookingSSDExecution1FinishEnd -> UserBookingSSDCallMessage1ReturnReceivingEnd UserBookingSSDCallMessage1)
+		CallMessage::UserBookingSSDCallMessage3(validatePayment UserBookingSSDCallMessage3SendingEnd -> UserBookingSSDExecution2StartEnd)
+		ReturnMessage::UserBookingSSDCallMessage3Return(UserBookingSSDExecution2FinishEnd -> UserBookingSSDCallMessage3ReturnReceivingEnd UserBookingSSDCallMessage3)
+
+		Execution::UserBookingSSDExecution1(UserBookingService UserBookingSSDExecution1StartEnd UserBookingSSDExecution1FinishEnd)
+		Execution::UserBookingSSDExecution2(UserBookingService UserBookingSSDExecution2StartEnd UserBookingSSDExecution2FinishEnd)
+
+		MessageEnd::UserBookingSSDCallMessage1SendingEnd(User UserBookingSSDCallMessage1)
+		ExecutionEnd::UserBookingSSDExecution1StartEnd(UserBookingService UserBookingSSDExecution1)
+		ExecutionEnd::UserBookingSSDExecution1FinishEnd(UserBookingService UserBookingSSDExecution1)
+		MessageEnd::UserBookingSSDCallMessage1ReturnReceivingEnd(User UserBookingSSDCallMessage1Return)
+		MessageEnd::UserBookingSSDCallMessage3SendingEnd(User UserBookingSSDCallMessage3)
+		ExecutionEnd::UserBookingSSDExecution2StartEnd(UserBookingService UserBookingSSDExecution2)
+		ExecutionEnd::UserBookingSSDExecution2FinishEnd(UserBookingService UserBookingSSDExecution2)
+		MessageEnd::UserBookingSSDCallMessage3ReturnReceivingEnd(User UserBookingSSDCallMessage3Return)
+
+	}
+
+	Interaction GetConfirmationsSSD {
+
+		[Participants: User GetConfirmationsService]
+
+		CallMessage::GetConfirmationsSSDCallMessage3(confirmAndPay GetConfirmationsSSDCallMessage3SendingEnd -> GetConfirmationsSSDExecution2StartEnd)
+		ReturnMessage::GetConfirmationsSSDCallMessage3Return(GetConfirmationsSSDExecution2FinishEnd -> GetConfirmationsSSDCallMessage3ReturnReceivingEnd GetConfirmationsSSDCallMessage3)
+
+		Execution::GetConfirmationsSSDExecution2(GetConfirmationsService GetConfirmationsSSDExecution2StartEnd GetConfirmationsSSDExecution2FinishEnd)
+
+		MessageEnd::GetConfirmationsSSDCallMessage3SendingEnd(User GetConfirmationsSSDCallMessage3)
+		ExecutionEnd::GetConfirmationsSSDExecution2StartEnd(GetConfirmationsService GetConfirmationsSSDExecution2)
+		ExecutionEnd::GetConfirmationsSSDExecution2FinishEnd(GetConfirmationsService GetConfirmationsSSDExecution2)
+		MessageEnd::GetConfirmationsSSDCallMessage3ReturnReceivingEnd(User GetConfirmationsSSDCallMessage3Return)
+
+	}
+
+	Service BookMyTripSystem {
+
+	}
+
+	Service ThirdPartyServices {
+
+	}
+
+	Service SearchTripService {
+
+		[Operation]
+		search(destination : String, date : Date, travelers : Integer)
+
+	}
+
+	Service ComparePricesService {
+
+		[Operation]
+		inputSelectedTrip()
+		compareThePrices()
+
+	}
+
+	Service UserBookingService {
+
+		[Operation]
+		confirmBooking(tripId, paymentDetails)
+		validatePayment()
+		submitConfirmation()
+
+	}
+
+	Service GetConfirmationsService {
+
+		[Operation]
+		generateBookingSummary()
+		confirmAndPay()
+
+	}
+
+	Contract SearchTripService::search(destination : String, date : Date, travelers : Integer) : Set(Trips) {
+
+		definition:
+			selectedTrips:Set(Trips) = Trips.allInstance()->select(t:Trips |
+      t.Destination = destination and
+      t.TripDate   = date)
+
+		precondition:
+			destination <> "" and
+			date <> null and
+			travelers > 0
+
+		postcondition:
+			result = selectedTrips
+	}
+
+	Contract ComparePricesService::inputSelectedTrip() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+	Contract ComparePricesService::compareThePrices() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+	Contract GetConfirmationsService::generateBookingSummary() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+	Contract UserBookingService::validatePayment() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+	Contract UserBookingService::submitConfirmation() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+	Contract GetConfirmationsService::confirmAndPay() : Boolean {
+
+		precondition:
+			true
+		postcondition:
+			result = true
+	}
+
+}
+
+DomainModel BookMyTrip {
+
+	Entity SupportAgent {
+		SupportAgentID : String
+		SupportAgentPassword : String
+		SupportAgentEmail : String
+	}
+
+	Entity Notification {
+		TripReference : Integer
+		Message : String
+		SendDate : Date
+	}
+
+	Entity Manager {
+		ManagerID : String
+		ManagerPassword : String
+		ManagerEmail : String
+	}
+
+	Entity Report {
+		BookingList : String
+		Revenue : Integer
+		TraficSource : String
+	}
+
+	Entity AffiliatePartner {
+		AffiliateID : String
+		AffiliatePassword : String
+		AffiliateEmail : String
+	}
+
+	Entity User extends TravelPortal {
+		UserID : String
+		UserPassword : String
+		UserEmail : String
+	}
+
+	Entity TravelPortal extends Booking {
+		Trips : String
+		Users : String
+
+		[Refer]
+		TravelPortaltoPayment : Payment Association
+		TravelPortaltoSearch : Search Association
+	}
+
+	Entity Trips {
+		Id    : Integer
+		Destination : String
+		TripDate        : Date
+		Name : String
+		Description : String
+		Price : Integer
+	}
+
+	Entity Payment extends CheckOutPage {
+		CardNumber : String
+		ExpirationDate : Date
+		CVV : String
+		NameOnCard : String
+		BillingAmount : Integer
+		TransactionID : String
+	}
+
+	Entity CheckOutPage {
+		TripInfo : String
+		TripID : Integer
+		Attribute3 : String
+		Print : Boolean
+	}
+
+	Entity Search {
+		Destination : String
+		Datee : Date
+		Traverlers : Integer
+
+		[Refer]
+		SearchtoSearchResults : SearchResults Association
+	}
+
+	Entity SearchResults {
+		TripsList : String
+		ChooseTrip : Boolean
+		PriceCompare : Boolean
+	}
+
+	Entity RevenueReports {
+		ReportID : String
+		ReportType : String
+		Description : String
+	}
+
+	Entity Booking {
+		Id       : Integer
+		IsConfirmed    : Boolean
+		PaymentDetails : Payment
+		UserName : String
+		BookingTrip : Boolean
+
+		[Refer]
+		BookingtoTrips : Trips Association
+	}
+
+	Entity PriceCompare {
+		SelectedTrips : Set(Trips)
+		LowestPrice   : Integer
+	}
+
+	Entity BookingSummary {
+		Trip           : Trips
+		PaymentDetails : Payment
+	}
+
+}
+
